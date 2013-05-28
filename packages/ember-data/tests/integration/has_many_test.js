@@ -293,3 +293,16 @@ test("A record can be found after loading its id through a hasMany relationship"
   var post = store.find(App.Post, 1);
   var comment = store.find(App.Comment, 2);
 });
+
+test("Blows up when given an invalid class", function() {
+  App.Foo = DS.Model.extend({
+    comments: DS.hasMany('asdfsad'),
+  });
+
+  expect(0);
+
+  var foo = App.Foo.createRecord();
+  var comment = App.Comment.createRecord()
+
+  foo.get('comments').addObject(comment);
+});
